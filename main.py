@@ -19,16 +19,14 @@ app.add_middleware(
 # --- Helper: build response ensuring argument order ---
 def build_response(func_name: str, ordered_args: OrderedDict):
     """
-    Return the required JSON structure:
+    Return JSON structure for portal:
     {
-      "name": "function_name",
-      "arguments": "{\"arg1\": value1, \"arg2\": value2}"
+        "name": "function_name",
+        "arguments": { "arg1": value1, "arg2": value2 }
     }
-    The arguments value is a JSON-encoded string (keys in insertion order).
     """
-    # json.dumps will preserve insertion order for OrderedDict
-    args_str = json.dumps(ordered_args, ensure_ascii=False)
-    return {"name": func_name, "arguments": args_str}
+    return {"name": func_name, "arguments": dict(ordered_args)}
+
 
 
 # --- Regex patterns to extract parameters ---
